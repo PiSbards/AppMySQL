@@ -1,12 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppMySQL.PageCadastrar">
+             x:Class="AppMySQL.PageCadastrar" Title="Cadastro de Pessoa">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+            <Label Text="NOME" FontSize="Medium" FontAttributes="Bold"/>
+            <Entry x:Name="txtNome" Keyboard="Default" Placeholder="Digite o nome da Pessoa:"/>
+            <Label Text="IDADE" FontSize="Medium" FontAttributes="Bold"/>
+            <Entry x:Name="txtIdade" Keyboard="Numeric" Placeholder="Digite a idade da Pessoa:"/>
+            <Label Text="CIDADE" FontSize="Medium" FontAttributes="Bold"/>
+            <Entry x:Name="txtCidade" Keyboard="Default" Placeholder="Digite a cidade da Pessoa:"/>
+            <StackLayout HorizontalOptions="Center">
+                <Button Text="CADASTRAR" BackgroundColor="White" FontAttributes="Bold" x:Name="btnCadastrar" Clicked="btnCadastrar_Clicked"/>
+            </StackLayout>
+        </StackLayout>        
     </ContentPage.Content>
 </ContentPage>

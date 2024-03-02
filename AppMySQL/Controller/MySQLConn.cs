@@ -5,6 +5,8 @@ using System.Data;
 using MySqlConnector;
 using AppMySQL.Models;
 using System.Globalization;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace AppMySQL.Controller
 {
@@ -43,6 +45,62 @@ namespace AppMySQL.Controller
         public static void InserirPessoa(string nome,string idade,string cidade)
         {
             string sql = "INSERT INTO pessoa(nome,idade,cidade) VALUES (@nome,@idade,@cidade)";
+            using(MySqlConnection con = new MySqlConnection(conn))
+            {
+                con.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = nome;
+                    cmd.Parameters.Add("@idade", MySqlDbType.VarChar).Value = idade;
+                    cmd.Parameters.Add("@cidade", MySqlDbType.VarChar).Value = cidade;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+                }
+                con.Close();
+            }
+        }
+
+        public static void AtualizarPessoa(Pessoas pessoa)
+        {
+            string sql = "UPDATE pessoa SET nome=@nome,idade=@idade,cidade=@cidade WHERE id=@id";
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(conn))
+                {
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+                        cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = pessoa.nome;
+                        cmd.Parameters.Add("@idade", MySqlDbType.VarChar).Value = pessoa.idade;
+                        cmd.Parameters.Add("@cidade", MySqlDbType.VarChar).Value = pessoa.cidade;
+                        cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = pessoa.id;
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                    }
+                    con.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(string.Format("Erro: {0}", ex.Message));
+
+            }
+            
+        }
+        public static void ExcluirPessoa(Pessoas pessoa)
+        {
+            string sql = "DELETE FROM pessoa WHERE id=@id";
+            using (MySqlConnection con = new MySqlConnection(conn))
+            {
+                con.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = pessoa.id;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+                }
+                con.Close();
+            }
         }
     }
 }

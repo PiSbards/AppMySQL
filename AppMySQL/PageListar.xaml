@@ -1,12 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppMySQL.PageListar">
+             x:Class="AppMySQL.PageListar" Title="Listagem das Pessoas">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="PESSOAS" FontSize="40" FontAttributes="Bold" HorizontalOptions="Center"/>
+            <ListView x:Name="lsvPessoas" ItemSelected="lsvPessoas_ItemSelected" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                <StackLayout Orientation="Vertical" Margin="15">
+                                    <Label Text="{Binding nome}" TextColor="Blue" FontSize="16" FontAttributes="Bold"/>
+                                    <Label Text="{Binding idade}" TextColor="Black" FontSize="16"/>
+                                    <Label Text="{Binding cidade}" TextColor="Black" FontSize="16"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="btnNovo" Text="NOVO" Priority="0" Order="Primary" Clicked="btnNovo_Clicked"/>
+    </ContentPage.ToolbarItems>
 </ContentPage>
